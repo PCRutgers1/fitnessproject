@@ -1,4 +1,4 @@
-package fitnessproject;
+package com.softmeth.fitnessproject;
 
 /**
  * The Location enum class contains all the information pertaining to the

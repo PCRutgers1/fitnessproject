@@ -1,4 +1,4 @@
-package fitnessproject;
+package com.softmeth.fitnessproject;
 
 /**
  * The class to create a member with a premium membership

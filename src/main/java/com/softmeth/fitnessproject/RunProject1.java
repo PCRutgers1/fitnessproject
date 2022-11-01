@@ -1,4 +1,4 @@
-package fitnessproject;
+package com.softmeth.fitnessproject;
 
 /**
 This is a driver class that is used to run Project 1

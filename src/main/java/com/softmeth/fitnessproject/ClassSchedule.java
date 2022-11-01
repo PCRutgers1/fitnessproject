@@ -1,4 +1,4 @@
-package fitnessproject;
+package com.softmeth.fitnessproject;
 
 
 /**

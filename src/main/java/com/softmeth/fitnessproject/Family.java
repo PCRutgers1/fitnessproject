@@ -1,4 +1,4 @@
-package fitnessproject;
+package com.softmeth.fitnessproject;
 
 /**
  * The family inherits from the member class and allows the
