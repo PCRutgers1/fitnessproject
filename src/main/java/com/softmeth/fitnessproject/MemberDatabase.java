@@ -167,7 +167,7 @@ public class MemberDatabase {
      */
     public void print() {
         for (int i = 0; i < this.size; i++) {
-            System.out.println(mlist[i].toString());
+            GymManagerController.appendToDbView(mlist[i].toString());
         }
     } //print the array contents as is
 
@@ -177,7 +177,7 @@ public class MemberDatabase {
     public void printByCounty() {
         countySort();
         for (int ind = 0; ind < this.size; ind++) {
-            System.out.println(this.mlist[ind].toString());
+            GymManagerController.appendToDbView(this.mlist[ind].toString());
         }
     } //sort by county and then zipcode
 
@@ -201,7 +201,7 @@ public class MemberDatabase {
     public void printByExpirationDate() {
         dateSort();
         for (int ind = 0; ind < this.size; ind++) {
-            System.out.println(this.mlist[ind].toString());
+            GymManagerController.appendToDbView(this.mlist[ind].toString());
         }
     } //sort by the expiration date
 
@@ -225,7 +225,7 @@ public class MemberDatabase {
     public void printByName() {
         nameSort();
         for (int ind = 0; ind < this.size; ind++) {
-            System.out.println(this.mlist[ind].toString());
+            GymManagerController.appendToDbView(this.mlist[ind].toString());
         }
     } //sort by last name and then first name
 

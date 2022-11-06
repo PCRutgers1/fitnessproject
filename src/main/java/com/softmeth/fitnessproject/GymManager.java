@@ -576,9 +576,9 @@ public class GymManager {
      * 
      * @param message the message that we want to print out
      */
-    public static void printMessage(String message) {
-        System.out.println(message);
-    }
+//    public static void printMessage(String message) {
+//        System.out.println(message);
+//    }
 
 
     /**

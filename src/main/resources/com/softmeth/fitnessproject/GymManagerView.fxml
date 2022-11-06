@@ -31,58 +31,58 @@
                         <children>
                            <Pane prefHeight="56.0" prefWidth="759.0">
                               <children>
-                                 <TextField layoutX="128.0" layoutY="16.0" />
+                                 <TextField fx:id="MemberFirstName" layoutX="128.0" layoutY="16.0" />
                                  <Label layoutX="14.0" layoutY="20.0" text="Member First Name" />
-                                 <TextField layoutX="506.0" layoutY="16.0" />
+                                 <TextField fx:id="MemberLastName" layoutX="506.0" layoutY="16.0" />
                                  <Label layoutX="394.0" layoutY="20.0" text="Member Last Name" />
                               </children>
                            </Pane>
                            <Pane layoutX="10.0" layoutY="10.0" prefHeight="56.0" prefWidth="759.0">
                               <children>
                                  <Label layoutX="14.0" layoutY="20.0" text="Member Birthday" />
-                                 <DatePicker layoutX="122.0" layoutY="16.0" />
+                                 <DatePicker fx:id="MemberBirthday" editable="false" layoutX="124.0" layoutY="16.0" prefHeight="25.0" prefWidth="224.0" promptText="Select a date with calendar button" />
                               </children>
                            </Pane>
                            <Pane layoutX="10.0" layoutY="66.0" prefHeight="81.0" prefWidth="759.0">
                               <children>
                                  <Label layoutX="14.0" layoutY="20.0" text="Membership Location" />
-                                 <TextField layoutX="148.0" layoutY="16.0" />
+                                 <TextField fx:id="MemberLocation" layoutX="148.0" layoutY="16.0" />
                               </children>
                            </Pane>
                            <Pane prefHeight="106.0" prefWidth="765.0">
                               <children>
-                                 <RadioButton layoutX="12.0" layoutY="29.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="122.0" text="Premium Member">
+                                 <RadioButton fx:id="PremiumMember" layoutX="12.0" layoutY="29.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="122.0" text="Premium Member">
                                     <toggleGroup>
                                        <ToggleGroup fx:id="membershipType" />
                                     </toggleGroup>
                                  </RadioButton>
-                                 <RadioButton layoutX="11.0" layoutY="54.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="109.0" text="Family Member" toggleGroup="$membershipType" />
-                                 <RadioButton layoutX="11.0" layoutY="80.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="113.0" text="Regular Member" toggleGroup="$membershipType" />
+                                 <RadioButton fx:id="FamilyMember" layoutX="11.0" layoutY="54.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="109.0" text="Family Member" toggleGroup="$membershipType" />
+                                 <RadioButton fx:id="RegularMember" layoutX="11.0" layoutY="80.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="113.0" text="Regular Member" toggleGroup="$membershipType" />
                                  <Text layoutX="13.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type of Membership" />
                               </children>
                            </Pane>
                            <Pane minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="754.0">
                               <children>
-                                 <Button layoutX="44.0" layoutY="2.0" mnemonicParsing="false" text="Add Member To Database" />
-                                 <Button layoutX="530.0" layoutY="2.0" mnemonicParsing="false" text="Drop Member From Database" />
+                                 <Button fx:id="AddMember" layoutX="44.0" layoutY="2.0" mnemonicParsing="false" onAction="#addMember" text="Add Member To Database" />
+                                 <Button fx:id="DropMember" layoutX="530.0" layoutY="2.0" mnemonicParsing="false" onAction="#removeMember" text="Drop Member From Database" />
                               </children>
                            </Pane>
                            <Pane prefHeight="153.0" prefWidth="760.0">
                               <children>
-                                 <TextArea editable="false" layoutX="2.0" layoutY="28.0" prefHeight="87.0" prefWidth="755.0" />
-                                 <Text layoutX="361.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Output" />
+                                 <Text layoutX="292.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Scroll down to view latest Output" />
+                                 <TextArea fx:id="MemberTabOutput" editable="false" layoutX="2.0" layoutY="28.0" prefHeight="87.0" prefWidth="755.0" />
                               </children>
                            </Pane>
                         </children>
                      </FlowPane>
                   </children></AnchorPane>
-         </content>
-       </Tab>
+            </content>
+         </Tab>
          <Tab text="Guest Member Checkin">
             <content>
                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                   <children>
-                     <FlowPane layoutX="3.0" layoutY="1.0" prefHeight="479.0" prefWidth="755.0">
+                     <FlowPane layoutX="3.0" layoutY="1.0" prefHeight="566.0" prefWidth="764.0">
                         <children>
                            <Pane prefHeight="68.0" prefWidth="764.0">
                               <children>
@@ -91,36 +91,40 @@
                            </Pane>
                            <Pane prefHeight="56.0" prefWidth="759.0">
                               <children>
-                                 <TextField layoutX="142.0" layoutY="16.0" />
+                                 <TextField fx:id="GuestMemberFirstName" layoutX="142.0" layoutY="16.0" />
                                  <Label layoutX="14.0" layoutY="20.0" text="Member First Name" />
-                                 <TextField layoutX="506.0" layoutY="16.0" />
+                                 <TextField fx:id="GuestMemberLastName" layoutX="506.0" layoutY="16.0" />
                                  <Label layoutX="394.0" layoutY="20.0" text="Member Last Name" />
                               </children>
                            </Pane>
                            <Pane layoutX="10.0" layoutY="10.0" prefHeight="56.0" prefWidth="759.0">
                               <children>
                                  <Label layoutX="14.0" layoutY="20.0" text="Member Birthday" />
-                                 <DatePicker layoutX="143.0" layoutY="16.0" />
+                                 <DatePicker fx:id="GuestMemberBirthday" editable="false" layoutX="143.0" layoutY="16.0" promptText="Select a date with calendar button" />
                               </children>
                            </Pane>
-                           <Pane layoutX="10.0" layoutY="66.0" prefHeight="56.0" prefWidth="759.0">
+                           <Pane prefHeight="120.0" prefWidth="760.0">
                               <children>
-                                 <Label layoutX="14.0" layoutY="20.0" text="Membership Location" />
-                                 <TextField layoutX="143.0" layoutY="16.0" />
+                                 <Text layoutX="279.0" layoutY="106.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Scroll down to view latest Output" />
+                                 <Pane layoutX="1.0" layoutY="62.0" prefHeight="39.0" prefWidth="758.0">
+                                    <children>
+                                       <Button fx:id="CheckinGuestMember" layoutX="118.0" layoutY="7.0" mnemonicParsing="false" onAction="#guestCheckIn" text="Checkin Guest Member" />
+                                       <Button fx:id="CheckoutGuestMember" layoutX="460.0" layoutY="7.0" mnemonicParsing="false" onAction="#guestCheckout" text="Checkout Guest Member" />
+                                    </children>
+                                 </Pane>
+                                 <Pane layoutY="-9.0" prefHeight="71.0" prefWidth="757.0">
+                                    <children>
+                                       <Text layoutX="49.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fitness Class Type" />
+                                       <Text layoutX="294.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fitness Class Instructor Name" />
+                                       <TextField fx:id="GuestMemberFitnessClassType" layoutX="22.0" layoutY="32.0" />
+                                       <TextField fx:id="GuestMemberFitnessClassInstructor" layoutX="294.0" layoutY="32.0" />
+                                       <Text layoutX="565.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fitness Class Location" />
+                                       <TextField fx:id="GuestMemberFitnessClassLocation" layoutX="548.0" layoutY="32.0" />
+                                    </children>
+                                 </Pane>
                               </children>
                            </Pane>
-                           <Pane prefHeight="59.0" prefWidth="758.0">
-                              <children>
-                                 <Button layoutX="116.0" layoutY="27.0" mnemonicParsing="false" text="Checkin Guest Member" />
-                                 <Button layoutX="463.0" layoutY="27.0" mnemonicParsing="false" text="Checkout Guest Member" />
-                              </children>
-                           </Pane>
-                           <Pane prefHeight="153.0" prefWidth="760.0">
-                              <children>
-                                 <Text layoutX="361.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Output" />
-                                 <TextArea editable="false" layoutX="3.0" layoutY="25.0" prefHeight="114.0" prefWidth="755.0" />
-                              </children>
-                           </Pane>
+                           <TextArea fx:id="GuestMemberTabOutput" editable="false" prefHeight="169.0" prefWidth="755.0" />
                         </children>
                      </FlowPane>
                   </children>
@@ -133,50 +137,51 @@
                   <children>
                      <FlowPane layoutX="3.0" layoutY="1.0" prefHeight="479.0" prefWidth="755.0">
                         <children>
-                           <Pane prefHeight="68.0" prefWidth="764.0">
+                           <Pane prefHeight="32.0" prefWidth="764.0">
                               <children>
-                                 <Text layoutX="99.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Checkin a member by filling out the following information" textAlignment="CENTER" wrappingWidth="565.13671875" />
+                                 <Text layoutX="99.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Checkin a member by filling out the following information" textAlignment="CENTER" wrappingWidth="565.13671875" />
                               </children>
                            </Pane>
                            <Pane prefHeight="56.0" prefWidth="759.0">
                               <children>
-                                 <TextField layoutX="142.0" layoutY="16.0" />
+                                 <TextField fx:id="CheckinMemberFirstName" layoutX="142.0" layoutY="16.0" />
                                  <Label layoutX="14.0" layoutY="20.0" text="Member First Name" />
-                                 <TextField layoutX="506.0" layoutY="16.0" />
+                                 <TextField fx:id="CheckinMemberLastName" layoutX="506.0" layoutY="16.0" />
                                  <Label layoutX="394.0" layoutY="20.0" text="Member Last Name" />
                               </children>
                            </Pane>
                            <Pane layoutX="10.0" layoutY="10.0" prefHeight="56.0" prefWidth="759.0">
                               <children>
                                  <Label layoutX="14.0" layoutY="20.0" text="Member Birthday" />
-                                 <DatePicker layoutX="143.0" layoutY="16.0" />
+                                 <DatePicker fx:id="CheckinMemberBirthday" editable="false" layoutX="143.0" layoutY="16.0" promptText="Select a date with calendar button" />
                               </children>
                            </Pane>
                            <Pane layoutX="10.0" layoutY="66.0" prefHeight="56.0" prefWidth="759.0">
                               <children>
                                  <Label layoutX="14.0" layoutY="20.0" text="Membership Location" />
-                                 <TextField layoutX="143.0" layoutY="16.0" />
+                                 <TextField fx:id="CheckinMemberLocation" layoutX="143.0" layoutY="16.0" />
                               </children>
                            </Pane>
                            <Pane prefHeight="71.0" prefWidth="757.0">
                               <children>
-                                 <Text layoutX="153.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fitness Class Information" textAlignment="CENTER" wrappingWidth="451.4609375" />
-                                 <Text layoutX="24.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Class Type" />
-                                 <Text layoutX="351.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Class Instructor Name" />
-                                 <TextField layoutX="102.0" layoutY="32.0" />
-                                 <TextField layoutX="499.0" layoutY="32.0" />
+                                 <Text layoutX="64.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fitness Class Type" />
+                                 <Text layoutX="301.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fitness Class Instructor Name" />
+                                 <TextField fx:id="CheckinMemberFitnessClassType" layoutX="37.0" layoutY="32.0" />
+                                 <TextField fx:id="CheckinMemberFitnessClassInstructor" layoutX="304.0" layoutY="32.0" />
+                                 <Text layoutX="566.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fitness Class Location" />
+                                 <TextField fx:id="CheckinMemberFitnessClassLocation" layoutX="549.0" layoutY="32.0" />
                               </children>
                            </Pane>
                            <Pane prefHeight="49.0" prefWidth="758.0">
                               <children>
-                                 <Button layoutX="55.0" layoutY="14.0" mnemonicParsing="false" text="Checkin Member" />
-                                 <Button layoutX="479.0" layoutY="14.0" mnemonicParsing="false" text="Checkout Member" />
+                                 <Button fx:id="CheckinMember" layoutX="55.0" layoutY="14.0" mnemonicParsing="false" onAction="#memberCheckIn" text="Checkin Member" />
+                                 <Button fx:id="CheckoutMember" layoutX="479.0" layoutY="14.0" mnemonicParsing="false" onAction="#memberCheckOut" text="Checkout Member" />
                               </children>
                            </Pane>
                            <Pane prefHeight="153.0" prefWidth="760.0">
                               <children>
-                                 <Text layoutX="361.0" layoutY="13.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Output" />
-                                 <TextArea editable="false" layoutX="3.0" layoutY="16.0" prefHeight="84.0" prefWidth="755.0" />
+                                 <Text layoutX="292.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Scroll down to view latest Output" />
+                                 <TextArea fx:id="MemberCheckinOutput" editable="false" layoutX="3.0" layoutY="24.0" prefHeight="111.0" prefWidth="755.0" />
                               </children>
                            </Pane>
                         </children>
@@ -191,18 +196,18 @@
                   <children>
                      <Pane layoutX="14.0" prefHeight="200.0" prefWidth="751.0">
                         <children>
-                           <Button layoutX="74.0" layoutY="125.0" mnemonicParsing="false" text="Click to Load Members" />
-                           <Button layoutX="485.0" layoutY="125.0" mnemonicParsing="false" text="Click to Load Class Schedules" />
+                           <Button layoutX="74.0" layoutY="125.0" mnemonicParsing="false" onAction="#loadMemberList" text="Click to Load Members" />
+                           <Button layoutX="485.0" layoutY="125.0" mnemonicParsing="false" onAction="#loadClassScheduleList" text="Click to Load Class Schedules" />
                            <Text layoutX="22.0" layoutY="105.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Load Members from Member List File" />
                            <Text layoutX="451.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Load classes from Class Schedule File" />
                         </children>
                      </Pane>
                      <BorderPane layoutX="14.0" layoutY="206.0" prefHeight="230.0" prefWidth="751.0">
                         <top>
-                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Output" BorderPane.alignment="CENTER" />
+                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Scroll down to view latest Output" BorderPane.alignment="CENTER" />
                         </top>
                         <center>
-                           <TextArea editable="false" prefHeight="81.0" prefWidth="751.0" BorderPane.alignment="CENTER" />
+                           <TextArea fx:id="LoadDataOutput" editable="false" prefHeight="81.0" prefWidth="751.0" BorderPane.alignment="CENTER" />
                         </center>
                      </BorderPane>
                   </children>
@@ -215,35 +220,40 @@
                   <children>
                      <VBox prefHeight="200.0" prefWidth="763.0">
                         <children>
-                           <Button mnemonicParsing="false" text="Click to view all members in the database">
+                           <Button fx:id="PrintMemberDatabase" mnemonicParsing="false" onAction="#viewAllMembersInDB" text="Click to view all members in the database">
                               <VBox.margin>
                                  <Insets top="20.0" />
                               </VBox.margin>
                            </Button>
-                           <Button mnemonicParsing="false" text="Click to view all members sorted by last name then first name">
+                           <Button fx:id="PrintMemberDatabaseByName" mnemonicParsing="false" onAction="#viewAllMembersByName" text="Click to view all members sorted by last name then first name">
                               <VBox.margin>
                                  <Insets top="10.0" />
                               </VBox.margin>
                            </Button>
-                           <Button mnemonicParsing="false" text="Click to view all members sorted by their membership county and then zipcode">
+                           <Button fx:id="PrintMemberDatabaseByLocation" mnemonicParsing="false" onAction="#viewAllMembersByCounty" text="Click to view all members sorted by their membership county and then zipcode">
                               <VBox.margin>
                                  <Insets top="10.0" />
                               </VBox.margin>
                            </Button>
-                           <Button mnemonicParsing="false" text="Click to view all members sorted by their membership expiration date">
+                           <Button fx:id="PrintMemberDatabaseByExpirationDate" mnemonicParsing="false" onAction="#viewAllMembersByDate" text="Click to view all members sorted by their membership expiration date">
                               <VBox.margin>
                                  <Insets bottom="10.0" top="10.0" />
                               </VBox.margin>
                            </Button>
-                           <Button mnemonicParsing="false" text="Click to display a schedule for all classes" />
+                           <Button fx:id="PrintMemberDatabaseByExpirationDate1" layoutX="10.0" layoutY="135.0" mnemonicParsing="false" onAction="#viewAllMembersByFees" text="Click to view all members and their membership fees">
+                              <VBox.margin>
+                                 <Insets bottom="10.0" />
+                              </VBox.margin>
+                           </Button>
+                           <Button fx:id="PrintFitnessClassSchedule" mnemonicParsing="false" onAction="#displayScheduleForAllClasses" text="Click to display a schedule for all classes" />
                         </children>
                      </VBox>
                      <BorderPane layoutX="14.0" layoutY="206.0" prefHeight="230.0" prefWidth="751.0">
                         <top>
-                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Output" BorderPane.alignment="CENTER" />
+                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Scroll down to view latest Output" BorderPane.alignment="CENTER" />
                         </top>
                         <center>
-                           <TextArea editable="false" prefHeight="81.0" prefWidth="751.0" BorderPane.alignment="CENTER" />
+                           <TextArea fx:id="ViewDBOutput" editable="false" prefHeight="81.0" prefWidth="751.0" BorderPane.alignment="CENTER" />
                         </center>
                      </BorderPane>
                   </children>

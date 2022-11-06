@@ -163,79 +163,70 @@ public class FitnessClass {
     /**
      Add a Member into a fitness Class and checks for conflicts for that member
      @param member the Members that is being added
-     @return true if member successfully added, false otherwise
+     @return The string message of whether the member has been added successfully
      */
-    public boolean addMember(Member member) {
+    public String addMember(Member member) {
         if (this.getTime() == Time.MORNING) {
             for (FitnessClass f : FitnessClass.morningClasses) {
                 if (f.classRoster.contains(member) && !this.equals(f)) {
-                    GymManager.printMessage(String.format("Time conflict - %s - %s, %s, %s",
+                   return (String.format("Time conflict - %s - %s, %s, %s",
                             this.classType, this.teacher, this.time.getTime(), this.location.getLocation()));
-                    return false;
                 }
             }
         } else if (this.getTime() == Time.AFTERNOON) {
             for (FitnessClass f : FitnessClass.afternoonClasses) {
                 if (f.classRoster.contains(member) && !this.equals(f)) {
-                    GymManager.printMessage(String.format("Time " +
+                    return(String.format("Time " +
                             "conflict - %s - %s, %s, %s",
                             this.classType, this.teacher, this.time.getTime(),this.location.getLocation()));
-                    return false;
                 }
             }
         } else {
             for (FitnessClass f : FitnessClass.eveningClasses) {
                 if (f.classRoster.contains(member) && !this.equals(f)) {
-                    GymManager.printMessage(String.format("Time conflict - %s - %s, %s, %s",
+                    return (String.format("Time conflict - %s - %s, %s, %s",
                             this.classType, this.teacher, this.time.getTime(),this.location.getLocation()));
-                    return false;
                 }
             }
         }
         if (this.classRoster.contains(member)) {
-            GymManager.printMessage(String.format("%s %s already checked in.", member.getfname(),member.getlname()));
-            return false;
+            return (String.format("%s %s already checked in.", member.getfname(),member.getlname()));
         } else {
             this.classRoster.add(member);
-            GymManager.printMessage(String.format("%s %s checked in" +
+            return (String.format("%s %s successfully checked in" +
                             " %s - %s, %s, %s " +
                             "\n", member.getfname(),
                     member.getlname(), this.getClassType(), this.getTeacher(),
                     this.getTime().getTime(), this.getLocation().getLocationString()));
-            GymManager.printClassMembers(this);
-            return true;
+//            GymManagerController.printClassMembers(this, );
         }
     }
 
     /**
      Remove a Member from a fitness Class
      @param member the Members that is being removed
-     @return true if successfully drop member, false otherwise
+     @return The string message of whether member was successfully dropped
      */
-    public boolean dropMember(Member member) {
+    public String dropMember(Member member) {
         if (this.classRoster.contains(member)) {
             this.classRoster.remove(member);
-            GymManager.printMessage(String.format("%s %s done with the class.\n", member.getfname(), member.getlname()));
-            return true;
+           return String.format("%s %s done with the class.\n", member.getfname(), member.getlname());
         }else{
-            GymManager.printMessage(String.format("%s %s did not check in.\n", member.getfname(), member.getlname()));
-            return false;
+            return String.format("%s %s did not check in.\n", member.getfname(), member.getlname());
         }
     }
 
     /**
      Remove a Guest Member from a Class
      @param member the Guest Members that is being removed
-     @return true if successfully dropped member, false otherwise
+     @return The string message of whether the guest member has been successfully dropped or not
      */
-    public boolean dropGuestMember(Member member) {
+    public String dropGuestMember(Member member) {
         if (this.guestRoster.contains(member)) {
             this.guestRoster.remove(member);
-            GymManager.printMessage(String.format("%s %s Guest done with the class.\n", member.getfname(), member.getlname()));
-            return true;
+            return String.format("%s %s Guest done with the class.\n", member.getfname(), member.getlname());
         }else{
-            GymManager.printMessage(String.format("%s %s did not check in.\n", member.getfname(), member.getlname()));
-            return false;
+            return String.format("%s %s did not check in.\n", member.getfname(), member.getlname());
         }
     }
 }
