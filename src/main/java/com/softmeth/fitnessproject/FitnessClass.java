@@ -45,7 +45,6 @@ public class FitnessClass {
      * @param time     the Time of a class
      * @param teacher  the Instructor of a class
      * @param classType the Type of class
-     * @param location the Location of a class
      */
     public FitnessClass(Location location, Time time,
                         String teacher, String classType) {

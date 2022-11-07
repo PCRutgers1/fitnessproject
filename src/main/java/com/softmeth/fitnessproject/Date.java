@@ -227,8 +227,9 @@ public class Date implements Comparable<Date> {
 
     /**
      * adds 3 months to the current date object
+     * @param numOfMonths the number of months to add
+     *                    to the date
      */
-
     public Date addToDate(int numOfMonths){
         int newMonth = this.getMonth() + numOfMonths;
         if (newMonth > Year_In_Months){
