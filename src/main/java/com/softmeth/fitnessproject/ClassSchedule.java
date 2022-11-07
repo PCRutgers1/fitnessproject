@@ -1,6 +1,10 @@
 package com.softmeth.fitnessproject;
 
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 /**
  * The Class schedule class basically maintains all of the classes
  * that a member can take, it maintains all of the available classes
@@ -14,6 +18,7 @@ public class ClassSchedule {
 
     private FitnessClass [] classes;
     private int numClasses;
+    private static int Invalid_ClassInfo_Len = 4;
 
     /**
      * Simple constructor to make a Class Schedule object
@@ -85,4 +90,83 @@ public class ClassSchedule {
         this.classes = fitnessClass;
     }
 
+    /**
+     * Load in a text file line by line and add them to either
+     * the ClassSchedule or to the Member List depending on
+     * the file name which comes from the command that calls
+     * this method
+     *
+     * @return the string message of whether the file
+     * has een successfully loaded
+     */
+    public String loadFromFile() {
+        File file = new File("classSchedule.txt");
+        Scanner sc;
+        String message = "";
+        try {
+            sc = new Scanner(file);
+
+            while (sc.hasNextLine()) {
+                message = message + loadClassSchedule(sc.nextLine());
+            }
+        } catch (FileNotFoundException e) {
+            return "Could not find the specified file " +
+                    "path, please place file in root of project";
+        }
+        return message;
+    }
+
+    /**
+     * Add the Class loaded in from text file into the Class Schedule
+     *
+     * @param schedule, the Class to be added into the Class Schedule
+     */
+    private String loadClassSchedule(String schedule) {
+        String[] classInfo = schedule.split(" ");
+        if (classInfo.length != Invalid_ClassInfo_Len) {
+            return Integer.toString(classInfo.length) + " Invalid length for class \n";
+        }
+
+        FitnessClass fc = new FitnessClass(
+                Location.findLocation(classInfo[3].toUpperCase()),
+                Time.findTime(classInfo[2]), classInfo[1],
+                classInfo[0]);
+
+        if (!FitnessClass.allClasses.contains(classInfo[0]))
+            FitnessClass.allClasses.add(classInfo[0].toLowerCase());
+        if (!FitnessClass.allTeachers.contains(classInfo[1]))
+            FitnessClass.allTeachers.add(classInfo[1].toLowerCase());
+        if (!FitnessClass.allLocations.contains(classInfo[2]))
+            FitnessClass.allLocations.add(classInfo[2].toLowerCase());
+
+        if (findClassWithoutChecks(fc.getClassType(), fc.getTeacher(),
+                fc.getLocation().getLocationString()) == null)
+            this.add(fc);
+        return String.format("%s - %s, %s, %s \n", fc.getClassType(),
+                fc.getTeacher().toUpperCase(),
+                fc.getTime().getTime(), fc.getLocation());
+    }
+    /**
+     * Find a fitness class without outputting checks if its valid
+     *
+     * @param classType  String of the Type of Class
+     * @param instructor String of the Instructor of a Class
+     * @param location   String of the Location of a Class
+     * @return Fitness Class if found, otherwise null
+     */
+    private FitnessClass findClassWithoutChecks(String classType,
+                                                String instructor,
+                                                String location) {
+        FitnessClass fitnessClass;
+
+        for (int i = 0; i < this.getNumClasses(); i++) {
+            fitnessClass = this.getClasses()[i];
+
+            if (fitnessClass.getClassType().equalsIgnoreCase(classType) && fitnessClass.getTeacher()
+                    .equalsIgnoreCase(instructor) && fitnessClass.getLocation()
+                    .equals(Location.findLocation(location.toUpperCase())))
+                return fitnessClass;
+        }
+        return null;
+    }
 }

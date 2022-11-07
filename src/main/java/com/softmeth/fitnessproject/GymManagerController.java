@@ -6,8 +6,15 @@ import javafx.scene.control.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Scanner;
 
+/**
+ * The Controller class part of the MVC design pattern. This will
+ * handle all the button on click events and will perform the necessary
+ * checks to determine which methods should be called. Upon determination
+ * it will call the corresponding model to create/alter that data
+ *
+ * @author Peter Chen, Jonathon Lopez
+ */
 public class GymManagerController {
 
     MemberDatabase member_db = new MemberDatabase();
@@ -51,6 +58,14 @@ public class GymManagerController {
     @FXML
     private ToggleGroup membershipType;
 
+    /**
+     * This is essentially the print function
+     * It will determine where to display messages to
+     * based on the textarea that is passed in
+     *
+     * @param textArea the textarea to display the message in
+     * @param Message  The message to write to the textarea
+     */
     public static void appendToTextArea(TextArea textArea, String Message) {
         String oldText;
         if (textArea == null){
@@ -59,6 +74,13 @@ public class GymManagerController {
         textArea.setText(oldText + Message + "\n");
     }
 
+    /**
+     * This is very similar to the append to text area
+     * function except that it is linked to the output textarea
+     * in the view database tab.
+     *
+     * @param Message  The message to write to the textarea
+     */
     public static void appendToDbView(String Message) {
         String oldText = DBOutput.getText().trim() + "\n";
         DBOutput.setText(oldText + Message + "\n");
@@ -154,6 +176,11 @@ public class GymManagerController {
 
     /**
      * Initializes and Adds a premium member to a member database
+     *
+     * @param fname first name of the premium member
+     * @param lname last name of the premium member
+     * @param dob date of birth of the premium member
+     * @param location location of the premium member's membership
      */
     private void addPremiumMember(String fname, String lname, String dob, String location) {
         Family member;
@@ -184,6 +211,11 @@ public class GymManagerController {
 
     /**
      * Adds and initializes a family member to the member database
+     *
+     * @param fname the first name of the family member to add
+     * @param lname the last name of the fmaily member to add
+     * @param dob the date of birth of the fmaily member to add
+     * @param location location of the fmaily member's membership
      */
     public void addFamilyMember(String fname, String lname, String dob, String location) {
         Member member;
@@ -208,100 +240,6 @@ public class GymManagerController {
     }
 
 
-    /**
-     * Load in a text file line by line and add them to either
-     * the ClassSchedule or to the Member List depending on
-     * the file name which comes from the command that calls
-     * this method
-     *
-     * @param fileName, File that is being loaded
-     */
-    private void loadFromFile(String fileName) {
-        File file = new File(fileName);
-        Scanner sc;
-        if (fileName.equals("classSchedule.txt"))
-            appendToTextArea(LoadDataOutput, "-Fitness classes loaded-");
-        else if (fileName.equals("memberList.txt"))
-            appendToTextArea(LoadDataOutput, "-list of members loaded-");
-
-        try {
-            sc = new Scanner(file);
-
-            while (sc.hasNextLine()) {
-                if (fileName.equals("classSchedule.txt")) {
-                    loadClassSchedule(sc.nextLine());
-                } else if (fileName.equals("memberList.txt")) {
-                    loadMemberList(sc.nextLine());
-                }
-            }
-        } catch (FileNotFoundException e) {
-            appendToTextArea(LoadDataOutput, "Could not find the specified file " +
-                    "path, please place file in root of project");
-        }
-        if (fileName.equals("classSchedule.txt"))
-            appendToTextArea(LoadDataOutput, "-end of class list. \n");
-        else if (fileName.equals("memberList.txt"))
-            appendToTextArea(LoadDataOutput, "-end of list. \n");
-    }
-
-    /**
-     * Add the Class loaded in from text file into the Class Schedule
-     *
-     * @param schedule, the Class to be added into the Class Schedule
-     */
-    private void loadClassSchedule(String schedule) {
-        String[] classInfo = schedule.split(" ");
-        if (classInfo.length != Invalid_ClassInfo_Len) {
-            return;
-        }
-
-        FitnessClass fc = new FitnessClass(
-                Location.findLocation(classInfo[3].toUpperCase()),
-                Time.findTime(classInfo[2]), classInfo[1],
-                classInfo[0]);
-
-        if (!FitnessClass.allClasses.contains(classInfo[0]))
-            FitnessClass.allClasses.add(classInfo[0].toLowerCase());
-        if (!FitnessClass.allTeachers.contains(classInfo[1]))
-            FitnessClass.allTeachers.add(classInfo[1].toLowerCase());
-        if (!FitnessClass.allLocations.contains(classInfo[2]))
-            FitnessClass.allLocations.add(classInfo[2].toLowerCase());
-
-        if (findClassWithoutChecks(fc.getClassType(), fc.getTeacher(),
-                fc.getLocation().getLocationString()) == null)
-            cs.add(fc);
-        appendToTextArea(LoadDataOutput, String.format("%s - %s, %s, %s \n", fc.getClassType(),
-                fc.getTeacher().toUpperCase(),
-                fc.getTime().getTime(), fc.getLocation()));
-    }
-
-    /**
-     * Add the Member loaded in from text file into the Member
-     * Database
-     *
-     * @param member, the Member to be added into the Member Database
-     */
-    private void loadMemberList(String member) {
-        member = RemoveSpace(member);
-        String[] memberInfo = member.split(" ");
-        if (memberInfo.length != Invalid_MemberInfo_Len) {
-            appendToTextArea(LoadDataOutput, Integer.toString(memberInfo.length));
-            return;
-        }
-        Member newMember = new Member(capitalize(memberInfo[0]),
-                capitalize(memberInfo[1]),
-                new Date(memberInfo[2]),
-                new Date(memberInfo[3]),
-                Location.findLocation(memberInfo[4].toUpperCase()));
-
-        if (member_db.Exist(newMember) < None)
-            member_db.add(newMember);
-        appendToTextArea(LoadDataOutput, String.format("%s %s, DOB: %s,  Membership expires: %s," +
-                        " Location: %s \n", newMember.getfname(),
-                newMember.getlname(), newMember.getdob(),
-                newMember.getExpireDate(),
-                newMember.getLocation().getLocation()));
-    }
 
     /**
      * Remove all double spaces and replace them with single spaces
@@ -626,7 +564,7 @@ public class GymManagerController {
     @FXML
     /**
      * Event Handler for the add members button
-     * @param event
+     *  @param event the event that triggered the function
      */
     void addMember(ActionEvent event) {
         try {
@@ -666,7 +604,7 @@ public class GymManagerController {
     @FXML
     /**
      * Event Handler for the add members button
-     * @param event
+     *  @param event the event that triggered the function
      */
     void removeMember(ActionEvent event) {
         try {
@@ -695,8 +633,8 @@ public class GymManagerController {
 
     @FXML
     /**
-     * Event Handler for the add members button
-     * @param event
+     * Event Handler for the View all members in database button
+     *  @param event the event that triggered the function
      */
     void viewAllMembersInDB(ActionEvent event) {
         DBOutput =  this.ViewDBOutput;
@@ -705,8 +643,8 @@ public class GymManagerController {
 
     @FXML
     /**
-     * Event Handler for the add members button
-     * @param event
+     * Event Handler for the sorted by name view all members in database button
+     *  @param event the event that triggered the function
      */
     void viewAllMembersByName(ActionEvent event) {
         DBOutput =  this.ViewDBOutput;
@@ -715,8 +653,8 @@ public class GymManagerController {
 
     @FXML
     /**
-     * Event Handler for the add members button
-     * @param event
+     * Event Handler for the sorted by county view all members in database button
+     *  @param event the event that triggered the function
      */
     void viewAllMembersByCounty(ActionEvent event) {
         DBOutput =  this.ViewDBOutput;
@@ -725,8 +663,9 @@ public class GymManagerController {
 
     @FXML
     /**
-     * Event Handler for the add members button
-     * @param event
+     * Event Handler for the sorted by membership expiration date
+     * view all members in database button
+     *  @param event the event that triggered the function
      */
     void viewAllMembersByDate(ActionEvent event) {
         DBOutput =  this.ViewDBOutput;
@@ -735,8 +674,9 @@ public class GymManagerController {
 
     @FXML
     /**
-     * Event Handler for the add members button
-     * @param event
+     * Event Handler for the button to show all classes being held
+     * as well as all of the participants in them
+     *  @param event the event that triggered the function
      */
     void displayScheduleForAllClasses(ActionEvent event) {
         DBOutput =  this.ViewDBOutput;
@@ -745,27 +685,43 @@ public class GymManagerController {
 
     @FXML
     /**
-     * Event Handler for the add members button
-     * @param event
+     * Event Handler for the button to load all the members
+     * from the memberlist file and add them to the database
+     * 
      */
     void loadMemberList(ActionEvent event) {
-        loadFromFile("memberList.txt");
+        String result = "";
+        try{
+        result = "-list of members loaded- \n" + member_db.loadFromFile();
+        }
+        catch (Exception e) {
+            appendToTextArea(LoadDataOutput, "Could not find the specified file " +
+                    "path, please place file in root of project");
+        }
+        appendToTextArea(LoadDataOutput, result);
+
     }
 
     @FXML
     /**
-     * Event Handler for the add members button
-     * @param event
+     * Event Handler for the button to load all the classes
+     * from the classschedule file and add them to the database
+     * *  @param event the event that triggered the function
      */
     void loadClassScheduleList(ActionEvent event) {
-        loadFromFile("classSchedule.txt");
+        appendToTextArea(LoadDataOutput, "-Fitness classes loaded-");
+
+        String result = "-end of class list. \n" + cs.loadFromFile();
+
+        appendToTextArea(LoadDataOutput, result);
+
 
     }
 
     @FXML
     /**
-     * Event Handler for the add members button
-     * @param event
+     * Event Handler for button to show all members and their fees
+     * @param event the event that triggered the function
      */
     void viewAllMembersByFees(ActionEvent event) {
         DBOutput =  this.ViewDBOutput;
@@ -776,7 +732,7 @@ public class GymManagerController {
     /**
      * Checks a Guest Member into a Class and handles the related exceptions
      * Event Handler for the Guest Member Checkin Button
-     * @param event
+     * @param event the event that triggered the function
      */
     void guestCheckIn(ActionEvent event) {
         try {
@@ -825,7 +781,7 @@ public class GymManagerController {
      * Check a Guest Member out of a Class if they are in
      * the class and handles related exceptions
      * Event Handler for the Guest Member Checkout
-     * @param event
+     *  @param event the event that triggered the function
      */
     void guestCheckout(ActionEvent event) {
         try {
@@ -869,7 +825,7 @@ public class GymManagerController {
      * class based on
      * what they have inputted.
      * Event Handler for the Member Checkin Button
-     * @param event
+     *  @param event the event that triggered the function
      */
     void memberCheckIn(ActionEvent event) {
         try {
@@ -935,7 +891,7 @@ public class GymManagerController {
      * that Pilates
      * and PILATES are the same when searching for the class.
      * Event Handler for Member Checkout Button
-     * @param event
+     *  @param event the event that triggered the function
      */
     void memberCheckOut(ActionEvent event) {
         try {

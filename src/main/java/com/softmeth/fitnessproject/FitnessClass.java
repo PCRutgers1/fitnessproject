@@ -128,38 +128,6 @@ public class FitnessClass {
         }
     }
 
-
-    /**
-     * This method checks a Members DOB and Expiration date are valid calendar
-     * dates, DOB is not today or a future date, check if a Member is 18 or
-     * older, if a Members location is valid and if the Member is already in the
-     * database. This method is used only for testing purposes and is the exact same
-     * one that exists in the gymamanger class.
-     *
-     * @param member The Member who's being checked
-     * @return true if member passes all checks, otherwise false
-     */
-    public boolean newValidMemberCheck(Member member) {
-        MemberDatabase member_db = new MemberDatabase();
-        Date today = new Date();
-        if (!(member.getdob().isValid())) {
-            return false;
-        } else if (!member.getExpireDate().isValid()) {
-            return false;
-        } else if (today.compareTo(member.getdob()) <= 0) {
-            return false;
-        } else if (!(member_db.checkOver18(member))) {
-            return false;
-        }
-        if (!member_db.checkLocationExists(member)) {
-            return false;
-        }
-        if ((member_db.Exist(member) != -1)) {
-            return false;
-        }
-        return true;
-    }
-
     /**
      Add a Member into a fitness Class and checks for conflicts for that member
      @param member the Members that is being added

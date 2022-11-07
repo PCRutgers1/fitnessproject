@@ -1,5 +1,9 @@
 package com.softmeth.fitnessproject;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 /**
  This class creates a Database full of a collection of Members
  Database to Add, Remove, Sort the Member's in it and Print the whole thing.
@@ -14,6 +18,10 @@ public class MemberDatabase {
     private static int minimumAge=18;
     private static int invalid=-1;
     private static int zero=0;
+    private static int Does_Not_Exist = -1;
+    private static int Invalid_ClassInfo_Len = 4;
+    private static int Invalid_MemberInfo_Len = 5;
+    private static int None = 0;
 
     /**
      Finds the Member inside the Member Database
@@ -258,4 +266,79 @@ public class MemberDatabase {
     public Member[] getMlist(){
         return this.mlist;
     }
+
+
+    /**
+     * Load in a text file line by line and add them to either
+     * the ClassSchedule or to the Member List depending on
+     * the file name which comes from the command that calls
+     * this method
+     *
+     * @return message, Returns the message of whether file is successfully
+     * loaded
+     */
+    public String loadFromFile() {
+        File file = new File("memberList.txt");
+        Scanner sc;
+        String message = "";
+        try {
+            sc = new Scanner(file);
+            while (sc.hasNextLine()) {
+                 message = message + loadMembersList(sc.nextLine());
+            }
+        } catch (FileNotFoundException e) {
+            return "Could not find the specified file " +
+                    "path, please place file in root of project";
+        }
+            message = "-end of list. \n";
+        return message;
+    }
+    /**
+     * Add the Member loaded in from text file into the Member
+     * Database
+     *
+     * @param member, the Member to be added into the Member Database
+     * @return message of whether the member has been added successfully
+     */
+    private String loadMembersList(String member) {
+        member = RemoveSpace(member);
+        String[] memberInfo = member.split(" ");
+        if (memberInfo.length != Invalid_MemberInfo_Len) {
+            return Integer.toString(memberInfo.length);
+        }
+        Member newMember = new Member(capitalize(memberInfo[0]),
+                capitalize(memberInfo[1]),
+                new Date(memberInfo[2]),
+                new Date(memberInfo[3]),
+                Location.findLocation(memberInfo[4].toUpperCase()));
+
+        if (this.Exist(newMember) < None)
+            this.add(newMember);
+         return String.format("%s %s, DOB: %s,  Membership expires: %s," +
+                        " Location: %s \n", newMember.getfname(),
+                newMember.getlname(), newMember.getdob(),
+                newMember.getExpireDate(),
+                newMember.getLocation().getLocation());
+    }
+    /**
+     * Remove all double spaces and replace them with single spaces
+     *
+     * @param line, the line that needs tall double spaces removed
+     */
+    private String RemoveSpace(String line) {
+        while (line.indexOf("  ") != Does_Not_Exist) {
+            line = line.replace("  ", " ");
+        }
+        return line;
+    }
+    /**
+     * Capitalize the first letter of a word and make the rest lower case
+     *
+     * @param word, the word that needs to be capitalized
+     */
+    private String capitalize(String word) {
+        return word.substring(0, 1).toUpperCase()
+                + word.substring(1).toLowerCase();
+    }
+
 }
