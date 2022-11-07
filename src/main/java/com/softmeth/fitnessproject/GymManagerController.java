@@ -703,9 +703,7 @@ public class GymManagerController {
      * *  @param event the event that triggered the function
      */
     void loadClassScheduleList(ActionEvent event) {
-        appendToTextArea(LoadDataOutput, "-Fitness classes loaded-");
-
-        String result = "-end of class list. \n" + cs.loadFromFile();
+        String result = "-Fitness classes loaded- \n" + cs.loadFromFile();
 
         appendToTextArea(LoadDataOutput, result);
 

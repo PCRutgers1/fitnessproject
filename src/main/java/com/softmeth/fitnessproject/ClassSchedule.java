@@ -113,7 +113,7 @@ public class ClassSchedule {
             return "Could not find the specified file " +
                     "path, please place file in root of project";
         }
-        return message;
+        return message + "-Fitness classes loaded- \n";
     }
 
     /**
@@ -124,7 +124,7 @@ public class ClassSchedule {
     private String loadClassSchedule(String schedule) {
         String[] classInfo = schedule.split(" ");
         if (classInfo.length != Invalid_ClassInfo_Len) {
-            return Integer.toString(classInfo.length) + " Invalid length for class \n";
+            return "";
         }
 
         FitnessClass fc = new FitnessClass(
