@@ -691,13 +691,7 @@ public class GymManagerController {
      */
     void loadMemberList(ActionEvent event) {
         String result = "";
-        try{
         result = "-list of members loaded- \n" + member_db.loadFromFile();
-        }
-        catch (Exception e) {
-            appendToTextArea(LoadDataOutput, "Could not find the specified file " +
-                    "path, please place file in root of project");
-        }
         appendToTextArea(LoadDataOutput, result);
 
     }

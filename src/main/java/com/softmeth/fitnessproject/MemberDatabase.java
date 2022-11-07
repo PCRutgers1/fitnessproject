@@ -290,7 +290,7 @@ public class MemberDatabase {
             return "Could not find the specified file " +
                     "path, please place file in root of project";
         }
-            message = "-end of list. \n";
+            message = message + "-end of list. \n";
         return message;
     }
     /**
