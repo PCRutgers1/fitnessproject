@@ -131,7 +131,8 @@ public class GymManagerController {
         String memberType = "";
         String remainingPasses = "";
         appendToDbView("-list of members with membership fees-");
-        for (Member m : member_db.getMlist()) {
+        for (int i = 0; i < member_db.getSize(); i ++) {
+            Member m = member_db.getMlist()[i];
             if (m instanceof Premium) {
                 memberType = " (Premium)";
                 remainingPasses = " Guess-pass remaining:" + ((Premium) m).getGuestPassesLeft();
@@ -148,7 +149,7 @@ public class GymManagerController {
                     m.getExpireDate(),
                     m.getLocation(), memberType, remainingPasses, m.membershipFee()));
         }
-        appendToDbView("-end of list-");
+        appendToDbView("-end of list- \n");
     }
 
     /**
@@ -238,9 +239,9 @@ public class GymManagerController {
                     "path, please place file in root of project");
         }
         if (fileName.equals("classSchedule.txt"))
-            appendToTextArea(LoadDataOutput, "-end of class list.");
+            appendToTextArea(LoadDataOutput, "-end of class list. \n");
         else if (fileName.equals("memberList.txt"))
-            appendToTextArea(LoadDataOutput, "-end of list.");
+            appendToTextArea(LoadDataOutput, "-end of list. \n");
     }
 
     /**
@@ -326,7 +327,7 @@ public class GymManagerController {
         } else {
             appendToTextArea(ViewDBOutput, "-list of members-");
             member_db.print();
-            appendToTextArea(ViewDBOutput, "-end of list-");
+            appendToTextArea(ViewDBOutput, "-end of list- \n");
         }
     }
 
@@ -342,7 +343,7 @@ public class GymManagerController {
                     "first name-");
 
             member_db.printByName();
-            appendToTextArea(ViewDBOutput, "-end of list-");
+            appendToTextArea(ViewDBOutput, "-end of list- \n");
         }
     }
 
@@ -357,7 +358,7 @@ public class GymManagerController {
             appendToDbView(
                     "-list of members sorted by county and zipcode-");
             member_db.printByCounty();
-            appendToDbView("-end of list-");
+            appendToDbView("-end of list- \n");
         }
     }
 
@@ -372,7 +373,7 @@ public class GymManagerController {
                     "-list of members sorted by membership " +
                             "experation date-");
             member_db.printByExpirationDate();
-            appendToDbView("-end of list-");
+            appendToDbView("-end of list-\n ");
         }
     }
 
@@ -388,7 +389,7 @@ public class GymManagerController {
 
         for (FitnessClass f : cs.getClasses()) {
             if (f == null) {
-                appendToDbView("-end of class list.");
+                appendToDbView("-end of class list. \n");
                 return;
             }
             appendToDbView(String.format("%s - %s, %s, %s \n", f.getClassType(),
@@ -779,11 +780,10 @@ public class GymManagerController {
      */
     void guestCheckIn(ActionEvent event) {
         try {
-            if (MemberBirthday.getValue() == null || ((RadioButton) membershipType.getSelectedToggle()) == null) {
+            if (GuestMemberBirthday.getValue() == null) {
                 appendToTextArea(GuestMemberTabOutput, "Please fill out all fields correctly");
                 return;
             }
-
             String fname = GuestMemberFirstName.getText().trim();
             String lname = GuestMemberLastName.getText().trim();
             String dob = GuestMemberBirthday.getValue().toString().trim();
@@ -795,51 +795,29 @@ public class GymManagerController {
                 appendToTextArea(GuestMemberTabOutput, "Please fill out all fields correctly");
                 return;
             }
-
             if (validMember(fname, lname, dob, GuestMemberTabOutput)) {
-                Member member = member_db.returnMember(
-                        new Member(fname, lname,
-                                new Date(dob),
-                                new Date(), Location.PISCATAWAY));
-
+                Member member = member_db.returnMember( new Member(fname, lname,new Date(dob),new Date(), Location.PISCATAWAY));
                 if (member instanceof Family) {
                     if (((Family) member).getGuestPassesLeft() > None) {
                         if (Location.findLocation(
                                 fclocation.toUpperCase()) == member.getLocation()) {
-                            if (findClassWithChecks(fcclass, fcinstructor,
-                                    fclocation, GuestMemberTabOutput) != null) {
-                                ((Family) member).setGuestPassesLeft(
-                                        ((Family) member).getGuestPassesLeft() - 1);
-                                FitnessClass myClass =
-                                        findClassWithoutChecks(fcclass, fcinstructor,
-                                                fclocation);
+                            if (findClassWithChecks(fcclass, fcinstructor,fclocation, GuestMemberTabOutput) != null) {
+                                ((Family) member).setGuestPassesLeft(((Family) member).getGuestPassesLeft() - 1);
+                                FitnessClass myClass =findClassWithoutChecks(fcclass, fcinstructor,fclocation);
                                 myClass.getGuestMembers().add(member);
-                                appendToTextArea(GuestMemberTabOutput, String.format("%s %s (guest) checked in %s- " +
-                                                "%s, %s, %s \n",
-                                        member.getfname(), member.getlname(), myClass.getClassType(),
-                                        myClass.getTeacher(), myClass.getTime().getTime(),
+                                appendToTextArea(GuestMemberTabOutput, String.format("%s %s (guest) checked in %s- %s, %s, %s \n",
+                                        member.getfname(), member.getlname(), myClass.getClassType(),myClass.getTeacher(), myClass.getTime().getTime(),
                                         myClass.getLocation().getLocationString()));
                                 printClassMembers(myClass, GuestMemberTabOutput);
-                            } else {
+                            } else
                                 appendToTextArea(GuestMemberTabOutput, String.format("Class does not exist"));
-                            }
                         } else
-                            appendToTextArea(GuestMemberTabOutput, String.format("%s %s Guest checking in %s- guest " +
-                                            "location restriction. \n",
-                                    member.getfname(), member.getlname(), Location.findLocation(
-                                            fclocation.toUpperCase()).getLocation()));
-                    } else {
-                        appendToTextArea(GuestMemberTabOutput, String.format("%s %s ran out of guest pass. \n",
-                                member.getfname(), member.getlname()));
-                    }
-                } else {
-                    appendToTextArea(GuestMemberTabOutput,
-                            "Standard membership - guest check-in is not allowed.");
-                }
+                            appendToTextArea(GuestMemberTabOutput, String.format("%s %s Guest checking in %s- guest location restriction. \n",
+                                    member.getfname(), member.getlname(), Location.findLocation(fclocation.toUpperCase()).getLocation()));
+                    } else appendToTextArea(GuestMemberTabOutput, String.format("%s %s ran out of guest pass. \n",member.getfname(), member.getlname()));
+                } else appendToTextArea(GuestMemberTabOutput,"Standard membership - guest check-in is not allowed.");
             }
-        } catch (NumberFormatException e) {
-
-        }
+        } catch (Exception e) {appendToTextArea(GuestMemberTabOutput, e.toString());}
     }
 
     @FXML
@@ -851,7 +829,7 @@ public class GymManagerController {
      */
     void guestCheckout(ActionEvent event) {
         try {
-            if (MemberBirthday.getValue() == null || ((RadioButton) membershipType.getSelectedToggle()) == null) {
+            if (GuestMemberBirthday.getValue() == null) {
                 appendToTextArea(GuestMemberTabOutput, "Please fill out all fields correctly");
                 return;
             }
@@ -866,7 +844,7 @@ public class GymManagerController {
                 appendToTextArea(GuestMemberTabOutput, "Please fill out all fields correctly");
                 return;
             }
-            if (validMember(fname, lname, dob, MemberCheckinOutput)) {
+            if (validMember(fname, lname, dob, GuestMemberTabOutput)) {
                 Member member = member_db.returnMember(
                         new Member(fname, lname,
                                 new Date(dob),
@@ -876,7 +854,8 @@ public class GymManagerController {
                 if (myClass != null) {
                     String output = myClass.dropGuestMember(member);
                     appendToTextArea(GuestMemberTabOutput, output);
-                    ((Family) member).setGuestPassesLeft(((Family) member).getGuestPassesLeft() + 1);
+                    if (output.contains("done"))
+                        ((Family) member).setGuestPassesLeft(((Family) member).getGuestPassesLeft() + 1);
                 }
             }
         } catch (Exception e) {

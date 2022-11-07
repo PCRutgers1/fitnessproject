@@ -100,7 +100,7 @@
                            <Pane layoutX="10.0" layoutY="10.0" prefHeight="56.0" prefWidth="759.0">
                               <children>
                                  <Label layoutX="14.0" layoutY="20.0" text="Member Birthday" />
-                                 <DatePicker fx:id="GuestMemberBirthday" editable="false" layoutX="143.0" layoutY="16.0" promptText="Select a date with calendar button" />
+                                 <DatePicker fx:id="GuestMemberBirthday" editable="false" layoutX="143.0" layoutY="16.0" prefHeight="25.0" prefWidth="226.0" promptText="Select a date with calendar button" />
                               </children>
                            </Pane>
                            <Pane prefHeight="120.0" prefWidth="760.0">
@@ -124,7 +124,7 @@
                                  </Pane>
                               </children>
                            </Pane>
-                           <TextArea fx:id="GuestMemberTabOutput" editable="false" prefHeight="169.0" prefWidth="755.0" />
+                           <TextArea fx:id="GuestMemberTabOutput" editable="false" prefHeight="152.0" prefWidth="755.0" />
                         </children>
                      </FlowPane>
                   </children>
@@ -153,13 +153,7 @@
                            <Pane layoutX="10.0" layoutY="10.0" prefHeight="56.0" prefWidth="759.0">
                               <children>
                                  <Label layoutX="14.0" layoutY="20.0" text="Member Birthday" />
-                                 <DatePicker fx:id="CheckinMemberBirthday" editable="false" layoutX="143.0" layoutY="16.0" promptText="Select a date with calendar button" />
-                              </children>
-                           </Pane>
-                           <Pane layoutX="10.0" layoutY="66.0" prefHeight="56.0" prefWidth="759.0">
-                              <children>
-                                 <Label layoutX="14.0" layoutY="20.0" text="Membership Location" />
-                                 <TextField fx:id="CheckinMemberLocation" layoutX="143.0" layoutY="16.0" />
+                                 <DatePicker fx:id="CheckinMemberBirthday" editable="false" layoutX="143.0" layoutY="16.0" prefHeight="25.0" prefWidth="250.0" promptText="Select a date with calendar button" />
                               </children>
                            </Pane>
                            <Pane prefHeight="71.0" prefWidth="757.0">
@@ -181,7 +175,7 @@
                            <Pane prefHeight="153.0" prefWidth="760.0">
                               <children>
                                  <Text layoutX="292.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Scroll down to view latest Output" />
-                                 <TextArea fx:id="MemberCheckinOutput" editable="false" layoutX="3.0" layoutY="24.0" prefHeight="111.0" prefWidth="755.0" />
+                                 <TextArea fx:id="MemberCheckinOutput" editable="false" layoutX="3.0" layoutY="24.0" prefHeight="177.0" prefWidth="755.0" />
                               </children>
                            </Pane>
                         </children>
@@ -248,7 +242,7 @@
                            <Button fx:id="PrintFitnessClassSchedule" mnemonicParsing="false" onAction="#displayScheduleForAllClasses" text="Click to display a schedule for all classes" />
                         </children>
                      </VBox>
-                     <BorderPane layoutX="14.0" layoutY="206.0" prefHeight="230.0" prefWidth="751.0">
+                     <BorderPane layoutX="14.0" layoutY="220.0" prefHeight="216.0" prefWidth="751.0">
                         <top>
                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Scroll down to view latest Output" BorderPane.alignment="CENTER" />
                         </top>
